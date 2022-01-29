@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ES6:Object.defineProperty()方法</title>
+    <!-- 以script方式引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script type="text/javascript">
+    let number = 18;
+    let person = {
+      name: "张三",
+      sex: "男",
+      //   age:18
+    };
+    // 通过这种比较高级的方式定义的值是不可枚举（遍历）、修改的
+    Object.defineProperty(person, "age", {
+      //   value: 18,
+      //   enumerable: true, //添加此行以指明属性可供枚举，默认false
+      //   writable: true, //添加此行以指明属性可被修改，默认false
+      //   configurable: true, //添加此行以指明属性可被删除，默认false
+
+      // 当读取person的age属性时，调用getter
+      get: function () {
+        return number;
+      },
+      // setter同理
+      set(value) {
+        number = value;
+      },
+    });
+
+    // console.log(Object.keys(person));
+    for (const key in person) {
+      console.log("@", person[key]);
+    }
+
+    console.log(person);
+  </script>
+</html>

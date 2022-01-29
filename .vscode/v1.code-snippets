@@ -10,12 +10,13 @@
 		"scope": "javascript,typescript",
 		"prefix": "v1",
 		"body": [
-			"new Vue({",
+			"const vm = new Vue({",
 			"el: \"#root\",",
 			"data: {",
 			"name: \"Hyperspace\",",
 			"},",
-			"});"
+			"});",
+			"console.log(vm);"
 		],
 		"description": "Vue code"
 	}
