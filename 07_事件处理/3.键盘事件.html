@@ -11,13 +11,32 @@
   <body>
     <div id="root">
       <h2>欢迎来到{{name}}</h2>
+      <!-- 也可以链式书写 -->
+      <input
+        type="text"
+        placeholder="按下回车提示输入"
+        @keyup.enter.caps-lock="showInfo"
+        @keydown.tab="showInfo"
+      />
     </div>
   </body>
   <script type="text/javascript">
+    // 也可以自定义别名
+    Vue.config.keyCodes.huiche = 13;
+
     const vm = new Vue({
       el: "#root",
       data: {
         name: "Hyperspace",
+      },
+      methods: {
+        showInfo(e) {
+          // keyCode: Deprecated
+          // if (e.keyCode !== 13) {
+          //   return;
+          // }
+          console.log(e.target.value);
+        },
       },
     });
     console.log(vm);

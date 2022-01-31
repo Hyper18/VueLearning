@@ -10,7 +10,10 @@
   </head>
   <body>
     <div id="root">
-      <h2>欢迎来到{{name}}</h2>
+      <h2>欢迎来到{{name}}的世界</h2>
+      <!-- <button v-on:click="showInfo">点我提示信息</button> -->
+      <button @click="showInfo1">点我提示信息</button>
+      <button @click="showInfo2(66)">点我提示信息</button>
     </div>
   </body>
   <script type="text/javascript">
@@ -18,6 +21,17 @@
       el: "#root",
       data: {
         name: "Hyperspace",
+      },
+      methods: {
+        showInfo1() {
+          console.log(event.target.innerText);
+          alert("展示中");
+        },
+        showInfo2(number) {
+          console.log(event.target.innerText);
+          console.log(number);
+          alert("2展示中");
+        },
       },
     });
     console.log(vm);
