@@ -23,20 +23,18 @@
       data: {
         firstName: "张",
         lastName: "三",
+        fullName: "张-三",
       },
-      computed: {
-        fullName: {
-          get() {
-            // console.log("get被调用", this);
-            return this.firstName + "-" + this.lastName;
-          },
-          set(val) {
-            console.log(val);
+      computed: {},
+      watch: {
+        firstName(newVal) {
+          setTimeout(() => {
+            this.fullName = newVal + "-" + this.lastName;
+          }, 1000);
+        },
 
-            arr = val.split("-");
-            this.firstName = arr[0];
-            this.lastName = arr[1];
-          },
+        lastName(newVal) {
+          this.fullName = this.firstName + "-" + newVal;
         },
       },
     });

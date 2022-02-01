@@ -4,17 +4,17 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>姓名案例_插值语法实现</title>
+    <title>姓名案例_methods实现</title>
     <!-- 以script方式引入Vue -->
     <script type="text/javascript" src="../js/vue.js"></script>
   </head>
   <body>
     <div id="root">
-      姓：<input type="text" v-model="firstName" /><br />
+      姓:<input type="text" v-model="firstName" /><br />
       <br />
-      名：<input type="text" v-model="lastName" /><br />
+      名:<input type="text" v-model="lastName" /><br />
       <!-- 全名：<span>{{firstName}}-{{lastName}}</span> -->
-      全名：<span>{{fullName()}}</span>
+      全名:<span>{{fullName()}}</span>
     </div>
   </body>
   <script type="text/javascript">
