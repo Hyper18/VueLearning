@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>天气案例-侦听属性</title>
+    <!-- 以script方式引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2>今天是第{{x}}天，天气很{{info}}</h2>
+      <button @click="isHot = !isHot">只改变天气</button>
+      <button @click="changeWeather">改变天气并推进时间</button>
+    </div>
+  </body>
+  <script type="text/javascript">
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        isHot: true,
+        x: 1,
+      },
+      computed: {
+        info() {
+          return this.isHot ? "炎热" : "凉爽";
+        },
+      },
+      methods: {
+        changeWeather() {
+          this.isHot = !this.isHot;
+          this.x++;
+        },
+      },
+      watch: {
+        // isHot: {
+        // immediate: true, //初始化时让handler先被调用一次
+        // // 在isHot属性变化时调用
+        // handler(newVal, oldVal) {
+        //   console.log(
+        //     "isHot属性改变了,新的值为:" + newVal + " 原值为:" + oldVal
+        //   );
+        // },
+        // },
+        info: {
+          // 也可以监测计算属性
+          immediate: true,
+          handler(newVal, oldVal) {
+            console.log(
+              "info属性改变了,新的值为:" + newVal + " 原值为:" + oldVal
+            );
+          },
+        },
+      },
+    });
+    // 写法二
+    vm.$watch("isHot", {
+      immediate: true, //初始化时让handler先被调用一次
+      // 在isHot属性变化时调用
+      handler(newVal, oldVal) {
+        console.log("isHot属性改变了,新的值为:" + newVal + " 原值为:" + oldVal);
+      },
+    });
+    console.log(vm);
+  </script>
+</html>
