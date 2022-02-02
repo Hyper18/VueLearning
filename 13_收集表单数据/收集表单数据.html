@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 以script方式引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2>欢迎来到{{name}}</h2>
+      <form action="" method="post" @submit.prevent="demo">
+        账号: <input type="text" v-model="userInfo.account" /> <br /><br />
+        密码: <input type="password" v-model="userInfo.password" /><br /><br />
+        性别: 男<input
+          type="radio"
+          v-model.trim="userInfo.sex"
+          name="sex"
+          value="male
+        "
+        />
+        女<input
+          type="radio"
+          v-model.trim="userInfo.sex"
+          name="sex"
+          value="female
+        "
+        />
+        <br /><br />
+        爱好: 学习<input
+          type="checkbox"
+          v-model.trim="userInfo.hobby"
+          value="study"
+        />
+        打游戏<input
+          type="checkbox"
+          v-model.trim="userInfo.hobby"
+          value="game"
+        />
+        吃饭<input type="checkbox" v-model.trim="userInfo.hobby" value="eat" />
+        <br /><br />
+        所属校区
+        <select v-model="userInfo.city">
+          <option value="">请选择校区</option>
+          <option value="beijing">北京</option>
+          <option value="shanghai">上海</option>
+          <option value="shenzhen">深圳</option>
+          <option value="chengdu">成都</option>
+          <option value="guangzhou">广州</option>
+        </select>
+        <br /><br />
+        其他信息
+        <textarea v-model.lazy="userInfo.other"></textarea> <br /><br />
+        <input type="checkbox" v-model="userInfo.agree" />阅读并接受<a
+          href="https://hyper18.github.io"
+          >《用户协议》</a
+        >
+        <button>提交</button>
+      </form>
+    </div>
+  </body>
+  <script type="text/javascript">
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        name: "Hyperspace",
+        userInfo: {
+          account: "",
+          password: "",
+          sex: "female",
+          hobby: [],
+          city: "guangzhou",
+          other: "",
+          agree: "",
+        },
+      },
+      methods: {
+        demo() {
+          console.log(JSON.stringify(this.userInfo));
+        },
+      },
+    });
+    console.log(vm);
+  </script>
+</html>
