@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>引入生命周期</title>
+    <!-- 以script方式引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2>欢迎来到{{name}}</h2>
+      <h2 :style="{opacity}">欢迎学习Vue</h2>
+      <!-- {{change()}} -->
+    </div>
+  </body>
+  <script type="text/javascript">
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        name: "Hyperspace",
+        opacity: 1,
+      },
+      methods: {
+        // change() {
+        // setInterval(() => {
+        //   this.opacity -= 0.01;
+        //   if (this.opacity <= 0) {
+        //     this.opacity = 1;
+        //   }
+        // }, 16);
+        // },
+      },
+      mounted() {
+        console.log("mounted", this);
+        setInterval(() => {
+          this.opacity -= 0.01;
+          if (this.opacity <= 0) {
+            this.opacity = 1;
+          }
+        }, 16);
+      },
+    });
+    console.log(vm);
+
+    // 通过外部的计时器实现（不推荐使用）
+    /*     setInterval(() => {
+      vm.opacity -= 0.01;
+      if (vm.opacity <= 0) {
+        vm.opacity = 1;
+      }
+    }, 16); */
+  </script>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>分析生命周期</title>
+    <!-- 以script方式引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2 v-text="n"></h2>
+      <h2>当前的n值是: {{n}}</h2>
+      <button @click="add">点我让n+1</button>
+      <button @click="bye">销魂vm</button>
+    </div>
+  </body>
+  <script type="text/javascript">
+    new Vue({
+      el: "#root",
+      //   template: `
+      //   <div id="root">
+      //   <h2>当前的n值是: {{n}}</h2>
+      //   <button @click="add">点我让n+1</button>
+      // </div>
+      // `,
+      data: {
+        n: 1,
+      },
+      methods: {
+        add() {
+          console.log("add");
+          this.n++;
+        },
+        bye() {
+          console.log("bye");
+          this.$destroy();
+        },
+      },
+      watch: {
+        n() {
+          console.log("n变化了");
+        },
+      },
+      beforeCreate() {
+        console.log("beforeCreate");
+        // console.log(this);
+        // debugger;
+      },
+      created() {
+        console.log("created");
+        // console.log(this);
+        // debugger;
+      },
+      beforeMount() {
+        console.log("beforeMount");
+        // console.log(this);
+
+        document.querySelector("h2").innerText = "haha哈哈";
+        // debugger;
+      },
+      mounted() {
+        console.log("mounted");
+        // console.log("mounted", this.$el instanceof HTMLElement);
+        // console.log(this);
+        // debugger;
+      },
+      beforeUpdate() {
+        console.log("beforeUpdate", this.n);
+        // console.log(this);
+      },
+      updated() {
+        console.log("updated");
+        console.log(this);
+        // this.n = 99;
+      },
+      beforeDestroy() {
+        console.log("beforeDestroy");
+        console.log(this.n);
+        this.add();
+      },
+      destroyed() {
+        console.log("destroyed");
+      },
+    });
+  </script>
+</html>
