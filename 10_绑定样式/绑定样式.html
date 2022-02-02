@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 以script方式引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <style>
+      .basic {
+        width: 400px;
+        height: 100px;
+        border: 1px solid black;
+      }
+      .happy {
+        padding: 5px;
+        color: red;
+      }
+      .sad {
+        padding: 5px;
+        color: blue;
+      }
+      .norm {
+        padding: 5px;
+        color: #fff;
+      }
+      .hyper1 {
+        margin-top: 5px;
+      }
+      .hyper2 {
+        margin-bottom: 5px;
+      }
+      .hyper3 {
+        margin-left: 5px;
+        margin-right: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <h2>欢迎来到{{name}}</h2>
+      <hr />
+      <!-- 绑定class样式的字符串写法：适用于样式的类名不确定，而需要动态指定的情况 -->
+      <div class="basic" :class="mood" @click="changeMood">{{name}}</div>
+      <!-- 绑定class样式的数组写法：要绑定样式的个数不确定、名字也不确定 -->
+      <div class="basic" :class="classArr" @click="changeMood">{{name}}</div>
+      <!-- 绑定class样式的对象写法：要绑定样式的个数确定、名字也确定，但要动态决定用不用 -->
+      <div class="basic" :class="classObj" @click="changeMood">{{name}}</div>
+      <!-- 绑定style样式的对象写法 -->
+      <div class="basic" :style="styleObj" @click="changeMood">{{name}}</div>
+      <!-- 绑定style样式的数组写法 -->
+      <div class="basic" :style="[styleObj, styleObj2]" @click="changeMood">
+        {{name}}
+      </div>
+      <div class="basic" :style="styleArr" @click="changeMood">{{name}}</div>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        name: "Hyperspace",
+        mood: "normal",
+        classArr: ["hyper1", "hyper2", "hyper3"],
+        classObj: {
+          hyper1: false,
+          hyper2: false,
+          hyper3: false,
+        },
+        styleObj: {
+          color: "red",
+          backgroundColor: "blue", // 样式对象：由原生js提供，必须驼峰命名
+          fontSize: "40px",
+        },
+        styleObj2: {
+          color: "blue",
+          backgroundColor: "red",
+          fontSize: "40px",
+        },
+        styleArr: [
+          {
+            color: "blue",
+          },
+          {
+            backgroundColor: "orange",
+            fontSize: "40px",
+          },
+        ],
+      },
+      methods: {
+        changeMood() {
+          // document.getElementById("demo").className = "basic happy";
+          // this.mood = "happy";
+          // 随机配置
+          const classArr = ["happy", "sad", "normal"];
+          const index = Math.floor(Math.random(0, 1) * 3);
+          this.mood = arr[index];
+        },
+      },
+    });
+    console.log(vm);
+  </script>
+</html>
