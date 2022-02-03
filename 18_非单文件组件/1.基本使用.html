@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>基本使用</title>
+    <!-- 以script方式引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <hello></hello>
+      <school></school>
+      <hr />
+      <student></student>
+    </div>
+  </body>
+  <script type="text/javascript">
+    // 创建vm
+    const school = Vue.extend({
+      //组件定义时，一定不要写el配置项，因为最终所有的组件都要被一个vm管理，由vm决定服务于哪个容器。
+      data() {
+        return {
+          name: "某大",
+          address: "广州",
+        };
+      },
+      template: `
+      <div>
+      <h2>学校名称:{{name}}</h2>
+      <h2>学校地址:{{address}}</h2>
+      <button @click="showName">点我提示学校名</button></button>
+      </div>
+      `,
+      methods: {
+        showName() {
+          alert(this.name);
+        },
+      },
+    });
+    const student = Vue.extend({
+      data() {
+        return {
+          name: "张三",
+          age: 21,
+        };
+      },
+      template: `
+      <div>
+      <h2>学生姓名:{{name}}</h2>
+      <h2>学生年龄:{{age}}</h2>
+      </div>
+      `,
+    });
+
+    const hello = Vue.extend({
+      data() {
+        return {
+          name: "Hyperspace",
+        };
+      },
+      template: `<div>
+      <h2>欢迎来到{{name}}</h2>
+      </div>`,
+    });
+
+    // 注册全局组件
+    Vue.component("hello", hello);
+
+    const vm = new Vue({
+      el: "#root",
+      components: {
+        // 注册组件（局部）
+        school,
+        student,
+      },
+    });
+    console.log(vm);
+  </script>
+</html>
