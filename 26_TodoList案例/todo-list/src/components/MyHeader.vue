@@ -1,11 +1,6 @@
 <template>
   <div class="todo-header">
-    <input
-      type="text"
-      v-model="title"
-      placeholder="请输入你的任务名称，按回车键确认"
-      @keyup.enter="add"
-    />
+    <input type="text" v-model="title" placeholder="请输入你的任务名称，按回车键确认" @keyup.enter="add" />
   </div>
 </template>
 
@@ -25,13 +20,12 @@ export default {
       const todoObj = { id: nanoid(), name: this.title, done: false };
       // console.log(todoObj);
       // 通知App组件添加一个todo对象
-      this.addTodo(todoObj);
+      this.$emit("addTodo", todoObj);
       // e.target.value = ''
       // 清空输入
       this.title = "";
     },
   },
-  props: ["addTodo"],
 };
 </script>
 

@@ -5,7 +5,8 @@
       <input type="checkbox" v-model="isAll" />
     </label>
     <span>
-      <span>已完成 {{ doneTotal }}</span> / 全部 {{ total }}
+      <span>已完成 {{ doneTotal }}</span>
+      / 全部 {{ total }}
     </span>
     <button class="btn btn-danger" @click="clearAll">清除已完成任务</button>
   </div>
@@ -14,14 +15,14 @@
 <script>
 export default {
   name: "MyFooter",
-  props: ["todos", "checkAllTodo", "clearAllTodo"],
+  props: ["todos"],
   computed: {
     isAll: {
       get() {
         return this.doneTotal == this.total && this.total > 0;
       },
       set(val) {
-        this.checkAllTodo(val);
+        this.$emit("checkAllTodo", val);
       },
     },
     total() {
@@ -37,9 +38,9 @@ export default {
       // console.log(e.target.checked)
       this.checkAllTodo(e.target.checked);
     }, */
-    clearAll(){
-      this.clearAllTodo()
-    }
+    clearAll() {
+      this.$emit("clearAllTodo");
+    },
   },
 };
 </script>
