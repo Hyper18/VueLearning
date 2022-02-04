@@ -8,7 +8,7 @@
           :checkTodo="checkTodo"
           :deleteTodo="deleteTodo"
         />
-        <MyFooter />
+        <MyFooter :todos="todos" />
       </div>
     </div>
   </div>
@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       todos: [
-        { id: 1, name: "写代码", done: false },
+        { id: 1, name: "写代码", done: false},
         { id: 2, name: "学习", done: false },
         { id: 3, name: "刷剧", done: true },
       ],
