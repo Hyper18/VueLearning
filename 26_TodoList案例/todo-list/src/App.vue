@@ -8,7 +8,11 @@
           :checkTodo="checkTodo"
           :deleteTodo="deleteTodo"
         />
-        <MyFooter :todos="todos" />
+        <MyFooter
+          :todos="todos"
+          :checkAllTodo="checkAllTodo"
+          :clearAllTodo="clearAllTodo"
+        />
       </div>
     </div>
   </div>
@@ -29,7 +33,7 @@ export default {
   data() {
     return {
       todos: [
-        { id: 1, name: "写代码", done: false},
+        { id: 1, name: "写代码", done: false },
         { id: 2, name: "学习", done: false },
         { id: 3, name: "刷剧", done: true },
       ],
@@ -43,14 +47,25 @@ export default {
     },
     // 勾选or取消一个todo
     checkTodo(id) {
-      console.log("我是App组件，我收到了id：", id);
+      // console.log("我是App组件，我收到了id：", id);
       this.todos.forEach((todo) => {
         if (todo.id == id) todo.done = !todo.done;
       });
     },
+    // 删除一个todo
     deleteTodo(id) {
-      console.log("我是App组件，我收到了id：", id);
+      // console.log("我是App组件，我收到了id：", id);
       this.todos = this.todos.filter((todo) => todo.id !== id);
+    },
+    // 全选or取消全选
+    checkAllTodo(done) {
+      this.todos.forEach((todo) => {
+        todo.done = done;
+      });
+    },
+    // 清除所有完成的todo
+    clearAllTodo() {
+      this.todos = this.todos.filter((todo) => !todo.done);
     },
   },
 };
