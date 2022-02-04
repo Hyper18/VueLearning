@@ -1,6 +1,12 @@
 <template>
   <ul class="todo-main">
-    <TodoItem />
+    <TodoItem
+      v-for="todo in todos"
+      :key="todo.id"
+      :todo="todo"
+      :checkTodo="checkTodo"
+      :deleteTodo="deleteTodo"
+    />
   </ul>
 </template>
 
@@ -9,10 +15,12 @@ import TodoItem from "./TodoItem";
 export default {
   name: "TodoList",
   components: { TodoItem },
+  props: ["todos", "checkTodo", "deleteTodo"],
 };
 </script>
 
-<style>
+// 注意style的作用域指定，避免互相干扰
+<style scoped>
 /*main*/
 .todo-main {
   margin-left: 0px;

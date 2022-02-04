@@ -1,20 +1,29 @@
 <template>
   <li>
     <label>
-      <input type="checkbox" />
-      <span>yyyy</span>
+      <input type="checkbox" :checked="todo.completed" @change="handleCheck(todo.id)" />
+      <span>{{todo.taskName}}</span>
     </label>
-    <button class="btn btn-danger" style="display: none">删除</button>
+    <button class="btn btn-danger" @click="handleDelete(todo.id)">删除</button>
   </li>
 </template>
 
 <script>
 export default {
   name: "TodoItem",
+  methods: {
+    handleCheck(id) {
+      this.checkTodo(id);
+    },
+    handleDelete(id) {
+      if (confirm("确定删除该事项？")) this.deleteTodo(id);
+    },
+  },
+  props: ["todo", "checkTodo", "deleteTodo"],
 };
 </script>
 
-<style>
+<style scoped>
 /*item*/
 li {
   list-style: none;
@@ -48,5 +57,13 @@ li:before {
 
 li:last-child {
   border-bottom: none;
+}
+
+li:hover {
+  background-color: lightgrey;
+}
+
+li:hover button {
+  display: block;
 }
 </style>

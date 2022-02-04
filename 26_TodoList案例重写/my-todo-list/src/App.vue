@@ -2,9 +2,13 @@
   <div id="root">
     <div class="todo-container">
       <div class="todo-wrap">
-        <TodoHeader />
-        <TodoList />
-        <TodoFooter />
+        <TodoHeader :addTodo="addTodo" />
+        <TodoList :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo" />
+        <TodoFooter
+          :todos="todos"
+          :checkAllTodo="checkAllTodo"
+          :clearAllCompletedTodo="clearAllCompletedTodo"
+        />
       </div>
     </div>
   </div>
@@ -21,6 +25,45 @@ export default {
     TodoHeader,
     TodoList,
     TodoFooter,
+  },
+  data() {
+    return {
+      todos: [
+        { id: 1, taskName: "撰写代码", completed: true },
+        { id: 2, taskName: "测试", completed: true },
+        { id: 3, taskName: "部署上线", completed: true },
+        { id: 4, taskName: "总结", completed: false },
+      ],
+    };
+  },
+  methods: {
+    // 添加一个todo事项
+    addTodo(todoObj) {
+      this.todos.unshift(todoObj);
+    },
+    // 勾选or取消勾选一个todo事项
+    checkTodo(id) {
+      this.todos.forEach((todoObj) => {
+        if (todoObj.id === id) todoObj.completed = !todoObj.completed;
+      });
+    },
+    // 删除一个todo事项
+    deleteTodo(id) {
+      this.todos = this.todos.filter((todoObj) => {
+        return todoObj.id !== id;
+      });
+    },
+    // 全选or取消全选todo
+    checkAllTodo(isCompleted) {
+      this.todos.forEach((todoObj) => {
+        todoObj.completed = isCompleted;
+      });
+    },
+    clearAllCompletedTodo() {
+      this.todos = this.todos.filter((todoObj) => {
+        return todoObj.completed !== true;
+      });
+    },
   },
 };
 </script>
