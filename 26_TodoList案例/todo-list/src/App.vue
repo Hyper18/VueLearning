@@ -2,8 +2,8 @@
   <div id="root">
     <div class="todo-container">
       <div class="todo-wrap">
-        <MyHeader />
-        <MyList />
+        <MyHeader :addTodo="addTodo" />
+        <MyList :todos="todos" :checkTodo="checkTodo" />
         <MyFooter />
       </div>
     </div>
@@ -21,6 +21,28 @@ export default {
     MyHeader,
     MyList,
     MyFooter,
+  },
+  data() {
+    return {
+      todos: [
+        { id: 1, name: "写代码", done: false },
+        { id: 2, name: "学习", done: false },
+        { id: 3, name: "刷剧", done: true },
+      ],
+    };
+  },
+  methods: {
+    // 添加一个todo
+    addTodo(todoObj) {
+      console.log("我是App组件，我收到了数据：", todoObj);
+      this.todos.unshift(todoObj);
+    },
+    // 勾选or取消一个todo
+    checkTodo(id) {
+      this.todos.forEach((todo) => {
+        if (todo.id == id) todo.done = !todo.done;
+      });
+    },
   },
 };
 </script>

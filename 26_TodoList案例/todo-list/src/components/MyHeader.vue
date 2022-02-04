@@ -1,12 +1,37 @@
 <template>
   <div class="todo-header">
-    <input type="text" placeholder="请输入你的任务名称，按回车键确认" />
+    <input
+      type="text"
+      v-model="title"
+      placeholder="请输入你的任务名称，按回车键确认"
+      @keyup.enter="add"
+    />
   </div>
 </template>
 
 <script>
+import { nanoid } from "nanoid";
 export default {
   name: "MyHeader",
+  data() {
+    return {
+      title: "",
+    };
+  },
+  methods: {
+    add() {
+      if (!this.title.trim()) return alert("输入不能为空！");
+      // 将用户的输入包装成一个todo对象
+      const todoObj = { id: nanoid(), name: this.title, done: false };
+      // console.log(todoObj);
+      // 通知App组件添加一个todo对象
+      this.addTodo(todoObj);
+      // e.target.value = ''
+      // 清空输入
+      this.title = "";
+    },
+  },
+  props: ["addTodo"],
 };
 </script>
 
