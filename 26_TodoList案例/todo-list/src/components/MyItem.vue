@@ -1,13 +1,9 @@
 <template>
   <li>
     <label>
-      <input
-        type="checkbox"
-        :checked="todo.done"
-        @change="handleCheck(todo.id)"
-      />
+      <input type="checkbox" :checked="todo.done" @change="handleCheck(todo.id)" />
       <!-- 不推荐的写法：虽然更方便，但修改了props传入的属性，违反原则
-       -->
+      -->
       <!-- <input type="checkbox" v-model="todo.done" /> -->
       <span>{{ todo.name }}</span>
     </label>
@@ -18,19 +14,21 @@
 <script>
 export default {
   name: "MyItem",
-  props: ["todo", "checkTodo", "deleteTodo"],
   // 声明接收todo对象
+  props: ["todo"],
   methods: {
     handleCheck(id) {
       console.log(id);
       // 通知App组件将对应的todo对象的done值取反
-      this.checkTodo(id);
+      // this.checkTodo(id);
+      this.$bus.$emit("checkTodo", id);
     },
     // 删除
     handleDelete(id) {
       console.log(id);
       if (confirm("确定删除吗？")) {
-        this.deleteTodo(id);
+        // this.deleteTodo(id);
+        this.$bus.$emit("deleteTodo", id);
       }
     },
   },
