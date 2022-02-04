@@ -3,16 +3,8 @@
     <div class="todo-container">
       <div class="todo-wrap">
         <MyHeader :addTodo="addTodo" />
-        <MyList
-          :todos="todos"
-          :checkTodo="checkTodo"
-          :deleteTodo="deleteTodo"
-        />
-        <MyFooter
-          :todos="todos"
-          :checkAllTodo="checkAllTodo"
-          :clearAllTodo="clearAllTodo"
-        />
+        <MyList :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo" />
+        <MyFooter :todos="todos" :checkAllTodo="checkAllTodo" :clearAllTodo="clearAllTodo" />
       </div>
     </div>
   </div>
@@ -32,11 +24,8 @@ export default {
   },
   data() {
     return {
-      todos: [
-        { id: 1, name: "写代码", done: false },
-        { id: 2, name: "学习", done: false },
-        { id: 3, name: "刷剧", done: true },
-      ],
+      //由于todos是MyHeader组件和NyFooter组件都在使用，所以放在App中（状态提升)
+      todos: JSON.parse(localStorage.getItem("todos")) || [],
     };
   },
   methods: {
@@ -66,6 +55,14 @@ export default {
     // 清除所有完成的todo
     clearAllTodo() {
       this.todos = this.todos.filter((todo) => !todo.done);
+    },
+  },
+  watch: {
+    todos: {
+      deep: true,
+      handler(val) {
+        localStorage.setItem("todos", JSON.stringify(val));
+      },
     },
   },
 };
