@@ -6,6 +6,9 @@
         :checked="todo.done"
         @change="handleCheck(todo.id)"
       />
+      <!-- 不推荐的写法：虽然更方便，但修改了props传入的属性，违反原则
+       -->
+      <!-- <input type="checkbox" v-model="todo.done" /> -->
       <span>{{ todo.name }}</span>
     </label>
     <button class="btn btn-danger" style="display: none">删除</button>
