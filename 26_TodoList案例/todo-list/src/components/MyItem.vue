@@ -5,9 +5,17 @@
       <!-- 不推荐的写法：虽然更方便，但修改了props传入的属性，违反原则
       -->
       <!-- <input type="checkbox" v-model="todo.done" /> -->
-      <span>{{ todo.name }}</span>
+      <span v-show="!todo.isEdit">{{ todo.name }}</span>
+      <input
+        type="text"
+        ref="inputTitle"
+        v-show="todo.isEdit"
+        :value="todo.name"
+        @blur="handleBlur(todo, $event)"
+      />
     </label>
     <button class="btn btn-danger" @click="handleDelete(todo.id)">删除</button>
+    <button v-show="!todo.isEdit" class="btn btn-edit" @click="handleEdit(todo)">编辑</button>
   </li>
 </template>
 
@@ -23,6 +31,18 @@ export default {
       // this.checkTodo(id);
       this.$bus.$emit("checkTodo", id);
     },
+    //编辑
+    handleEdit(todo) {
+      if (Object.prototype.hasOwnProperty.call("todo", "isEdit")) {
+        todo.isEdit = true;
+      }
+      // todo.isEdit = true;
+      else this.$set(todo, "isEdit", true);
+      this.$nextTick(function () {
+        // 在input框出现后回调
+        this.$refs.inputTitle.focus();
+      });
+    },
     // 删除
     handleDelete(id) {
       console.log(id);
@@ -30,6 +50,12 @@ export default {
         // this.deleteTodo(id);
         this.$bus.$emit("deleteTodo", id);
       }
+    },
+    // 失去焦点,执行修改逻辑
+    handleBlur(todo, e) {
+      todo.isEdit = false;
+      if (!e.target.value.trim()) return alert("输入不能为空或空格！");
+      this.$bus.$emit("updateTodo", todo.id, e.target.value);
     },
   },
 };
